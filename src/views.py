@@ -5,6 +5,6 @@ from django.shortcuts import render
 
 
 
-def t1(request):
+def imron(request):
     ctx={}
-    return render(request, "t1.html")
+    return render(request, "imron.html")

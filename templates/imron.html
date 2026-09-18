@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maktablar reestri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EFE1;
+    --paper-line:#D8CFB3;
+    --ink:#232017;
+    --ink-soft:#5B5644;
+    --navy:#1F3A5F;
+    --navy-dim:#3C5779;
+    --stamp:#A6382C;
+    --stamp-soft:#C9A79B;
+    --green:#3F6B45;
+    --amber:#A6772C;
+    --card:#FBF8EF;
+    --shadow-line: rgba(35,32,23,0.14);
+    --focus:#1F3A5F;
+    --radius:2px;
+    font-family:'Inter',sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#191B1F;
+      --paper-line:#33363D;
+      --ink:#EDE7D6;
+      --ink-soft:#A7A192;
+      --navy:#6E90B8;
+      --navy-dim:#4E6D8F;
+      --stamp:#D9695A;
+      --stamp-soft:#7A4B44;
+      --green:#7CAE7E;
+      --amber:#D3A65A;
+      --card:#20232A;
+      --shadow-line: rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#191B1F;
+    --paper-line:#33363D;
+    --ink:#EDE7D6;
+    --ink-soft:#A7A192;
+    --navy:#6E90B8;
+    --navy-dim:#4E6D8F;
+    --stamp:#D9695A;
+    --stamp-soft:#7A4B44;
+    --green:#7CAE7E;
+    --amber:#D3A65A;
+    --card:#20232A;
+    --shadow-line: rgba(0,0,0,0.4);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    background-image:
+      repeating-linear-gradient(var(--paper) 0 34px, var(--paper-line) 34px 35px);
+    min-height:100vh;
+  }
+  body::before{ content:none; }
+
+  .app{
+    max-width:1180px;
+    margin:0 auto;
+    padding:28px 20px 80px;
+  }
+
+  /* ---------- Header ---------- */
+  header.top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--ink);
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .brand h1{
+    font-family:'PT Serif', serif;
+    font-weight:700;
+    font-size:clamp(28px, 4vw, 40px);
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .brand p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    max-width:46ch;
+  }
+  .reg-stamp{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:6px;
+    font-size:13px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .reg-stamp .num{
+    font-family:'PT Serif', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--stamp);
+    border:1.5px solid var(--stamp);
+    padding:5px 12px;
+    border-radius:var(--radius);
+    transform:rotate(-1.5deg);
+  }
+  .theme-toggle{
+    background:transparent;
+    border:1px solid var(--ink-soft);
+    color:var(--ink);
+    border-radius:var(--radius);
+    padding:5px 10px;
+    font-size:12.5px;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .theme-toggle:hover{ border-color:var(--ink); }
+
+  /* ---------- Stat strip ---------- */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--ink);
+    margin-bottom:26px;
+    border:1px solid var(--ink);
+  }
+  .stat{
+    background:var(--card);
+    padding:14px 16px;
+  }
+  .stat .n{
+    font-family:'PT Serif', serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--navy);
+    line-height:1.1;
+  }
+  .stat .l{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+
+  /* ---------- Layout: binder tabs + content ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:190px 1fr;
+    gap:0;
+    border:1px solid var(--ink);
+  }
+  nav.binder{
+    background:var(--card);
+    border-right:1px solid var(--ink);
+  }
+  nav.binder button{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--paper-line);
+    padding:16px 16px;
+    font-family:'PT Serif', serif;
+    font-size:16px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    position:relative;
+  }
+  nav.binder button .count{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  nav.binder button.active{
+    color:var(--ink);
+    background:var(--paper);
+  }
+  nav.binder button.active::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:4px;
+    background:var(--navy);
+  }
+  nav.binder button:focus-visible,
+  button:focus-visible, input:focus-visible, select:focus-visible{
+    outline:2px solid var(--focus);
+    outline-offset:2px;
+  }
+
+  main.content{
+    background:var(--paper);
+    padding:22px 22px 30px;
+    min-width:0;
+  }
+
+  .content-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .content-head h2{
+    font-family:'PT Serif', serif;
+    font-size:21px;
+    margin:0;
+  }
+  .actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  input.search{
+    border:1px solid var(--ink-soft);
+    background:var(--card);
+    color:var(--ink);
+    padding:7px 10px;
+    border-radius:var(--radius);
+    font-size:13.5px;
+    min-width:180px;
+    font-family:'Inter',sans-serif;
+  }
+  button.primary{
+    background:var(--navy);
+    color:var(--paper);
+    border:none;
+    padding:8px 14px;
+    font-size:13.5px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+  }
+  button.primary:hover{ background:var(--navy-dim); }
+
+  /* ---------- Ledger table ---------- */
+  .ledger-wrap{ overflow-x:auto; }
+  table.ledger{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  table.ledger th{
+    text-align:left;
+    font-weight:600;
+    font-size:12px;
+    color:var(--ink-soft);
+    padding:8px 10px;
+    border-bottom:2px solid var(--ink);
+    white-space:nowrap;
+  }
+  table.ledger td{
+    padding:10px 10px;
+    border-bottom:1px solid var(--paper-line);
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+  table.ledger tbody tr:hover td{
+    background:var(--card);
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    padding:3px 8px 3px 6px;
+    border-radius:12px;
+    border:1px solid currentColor;
+  }
+  .tag .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:currentColor;
+  }
+  .tag.good{ color:var(--green); }
+  .tag.mid{ color:var(--amber); }
+  .tag.bad{ color:var(--stamp); }
+
+  .rowbtn{
+    background:none;
+    border:none;
+    color:var(--ink-soft);
+    cursor:pointer;
+    font-size:12.5px;
+    text-decoration:underline;
+    padding:0;
+    font-family:'Inter',sans-serif;
+  }
+  .rowbtn:hover{ color:var(--stamp); }
+
+  .empty{
+    padding:40px 10px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-family:'PT Serif', serif;
+    font-style:italic;
+  }
+
+  /* ---------- Modal ---------- */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(20,18,12,0.45);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:40px 16px;
+    overflow-y:auto;
+    z-index:50;
+  }
+  .overlay.open{ display:flex; }
+  .modal{
+    background:var(--card);
+    border:1px solid var(--ink);
+    width:100%;
+    max-width:480px;
+    padding:22px;
+    border-radius:var(--radius);
+  }
+  .modal h3{
+    font-family:'PT Serif', serif;
+    margin:0 0 14px;
+    font-size:19px;
+  }
+  .field{ margin-bottom:12px; }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:4px;
+  }
+  .field input, .field select{
+    width:100%;
+    padding:8px 9px;
+    border:1px solid var(--paper-line);
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:var(--radius);
+    font-size:13.5px;
+    font-family:'Inter',sans-serif;
+  }
+  .modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:16px;
+  }
+  button.ghost{
+    background:none;
+    border:1px solid var(--ink-soft);
+    color:var(--ink);
+    padding:8px 14px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-size:13.5px;
+    font-family:'Inter',sans-serif;
+  }
+
+  footer.note{
+    margin-top:22px;
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+
+  @media (max-width:760px){
+    .layout{ grid-template-columns:1fr; }
+    nav.binder{
+      display:flex;
+      overflow-x:auto;
+      border-right:none;
+      border-bottom:1px solid var(--ink);
+    }
+    nav.binder button{
+      border-bottom:none;
+      border-right:1px solid var(--paper-line);
+      white-space:nowrap;
+    }
+    nav.binder button.active::before{
+      top:auto; bottom:0; left:0; right:0; width:auto; height:3px;
+    }
+    .stats{ grid-template-columns:repeat(2,1fr); }
+    table.ledger{ font-size:12.5px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .overlay .modal{ animation:rise .18s ease-out; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div class="brand">
+      <h1>Maktablar reestri</h1>
+      <p>Maktablar, sinflar va o'quvchilar bo'yicha yagona ro'yxat — qidirish, qo'shish va holatni kuzatish uchun.</p>
+    </div>
+    <div class="reg-stamp">
+      <button class="theme-toggle" id="themeToggle" type="button">Tungi ko'rinish</button>
+      <span class="num" id="todayStr">Reestr — 2026</span>
+    </div>
+  </header>
+
+  <div class="stats" id="statsRow"></div>
+
+  <div class="layout">
+    <nav class="binder" id="tabNav">
+      <button data-tab="maktab" class="active">Maktablar<span class="count" id="cnt-maktab"></span></button>
+      <button data-tab="sinf">Sinflar<span class="count" id="cnt-sinf"></span></button>
+      <button data-tab="oquvchi">O'quvchilar<span class="count" id="cnt-oquvchi"></span></button>
+    </nav>
+
+    <main class="content">
+      <div class="content-head">
+        <h2 id="contentTitle">Maktablar ro'yxati</h2>
+        <div class="actions">
+          <input type="text" class="search" id="searchInput" placeholder="Qidirish…">
+          <button class="primary" id="addBtn" type="button">+ Qo'shish</button>
+        </div>
+      </div>
+      <div class="ledger-wrap">
+        <table class="ledger" id="ledgerTable">
+          <thead><tr id="theadRow"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="emptyMsg" style="display:none;">Bu yerda hozircha yozuv yo'q.</div>
+    </main>
+  </div>
+
+  <footer class="note">Ma'lumotlar shu qurilmada, brauzer xotirasida saqlanadi.</footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3 id="modalTitle">Yangi yozuv</h3>
+    <div id="modalFields"></div>
+    <div class="modal-actions">
+      <button class="ghost" id="cancelBtn" type="button">Bekor qilish</button>
+      <button class="primary" id="saveBtn" type="button">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var SCHEMAS = {
+    maktab: {
+      label: "Maktablar",
+      title: "Maktablar ro'yxati",
+      singular: "Maktab",
+      columns: [
+        {key:"number", label:"№", type:"number"},
+        {key:"direktor", label:"Direktor", type:"text"},
+        {key:"talim", label:"Ta'lim sifati", type:"select", options:["yaxshi","orta","yomon"]},
+        {key:"honalar", label:"Xonalar", type:"number"},
+        {key:"oqtuvchilar", label:"O'qituvchilar", type:"number"},
+        {key:"oquvchilar", label:"O'quvchilar", type:"number"},
+        {key:"zona", label:"Zona", type:"text"},
+        {key:"manzil", label:"Manzil", type:"text"},
+        {key:"elektronika", label:"Elektronika", type:"text"}
+      ],
+      display: ["number","direktor","talim","honalar","oqtuvchilar","oquvchilar","manzil"],
+      seed: [
+        {id:1, number:12, direktor:"Sh. Yusupova", talim:"yaxshi", honalar:34, oqtuvchilar:58, oquvchilar:940, zona:"Shayxontohur", manzil:"Navoiy ko'ch. 14", elektronika:"Interaktiv doska, 2 kompyuter xona"},
+        {id:2, number:47, direktor:"B. Qodirov", talim:"orta", honalar:28, oqtuvchilar:41, oquvchilar:812, zona:"Yunusobod", manzil:"Amir Temur ko'ch. 3", elektronika:"1 kompyuter xona"},
+        {id:3, number:83, direktor:"M. Ergasheva", talim:"yomon", honalar:19, oqtuvchilar:26, oquvchilar:560, zona:"Sergeli", manzil:"Bog'bon ko'ch. 21", elektronika:"Jihoz yo'q"},
+        {id:4, number:9, direktor:"F. Nazarov", talim:"yaxshi", honalar:40, oqtuvchilar:63, oquvchilar:1010, zona:"Mirzo Ulug'bek", manzil:"Universitet ko'ch. 6", elektronika:"Interaktiv doska, robototexnika xonasi"},
+        {id:5, number:61, direktor:"D. Islomova", talim:"orta", honalar:24, oqtuvchilar:35, oquvchilar:670, zona:"Chilonzor", manzil:"Bunyodkor ko'ch. 55", elektronika:"1 kompyuter xona"}
+      ]
+    },
+    sinf: {
+      label: "Sinflar",
+      title: "Sinflar ro'yxati",
+      singular: "Sinf",
+      columns: [
+        {key:"nomi", label:"Nomi", type:"text"},
+        {key:"oqituvchi", label:"O'qituvchi", type:"text"},
+        {key:"yonalish", label:"Yo'nalish", type:"text"},
+        {key:"dars_vaqti", label:"Dars vaqti", type:"text"},
+        {key:"xona_kengligi", label:"Xona kengligi", type:"number"},
+        {key:"orindiqlar", label:"O'rindiqlar", type:"number"},
+        {key:"sharoyit", label:"Sharoit", type:"text"}
+      ],
+      display: ["nomi","oqituvchi","yonalish","dars_vaqti","xona_kengligi","orindiqlar"],
+      seed: [
+        {id:1, nomi:"7-A", oqituvchi:"N. Rahimova", yonalish:"Matematika", dars_vaqti:"08:00–13:00", xona_kengligi:42, orindiqlar:30, sharoyit:"Konditsioner, yorug'"},
+        {id:2, nomi:"9-B", oqituvchi:"O. Tursunov", yonalish:"Fizika-matematika", dars_vaqti:"13:30–18:30", xona_kengligi:38, orindiqlar:28, sharoyit:"Yangi partalar"},
+        {id:3, nomi:"5-V", oqituvchi:"G. Ahmedova", yonalish:"Umumiy", dars_vaqti:"08:00–12:30", xona_kengligi:35, orindiqlar:26, sharoyit:"Ta'mirtalab"},
+        {id:4, nomi:"11-A", oqituvchi:"J. Karimov", yonalish:"Chet tillari", dars_vaqti:"08:30–14:00", xona_kengligi:30, orindiqlar:24, sharoyit:"Lingafon xonasi"}
+      ]
+    },
+    oquvchi: {
+      label: "O'quvchilar",
+      title: "O'quvchilar ro'yxati",
+      singular: "O'quvchi",
+      columns: [
+        {key:"ism_familiya", label:"Ism familiya", type:"text"},
+        {key:"davomat", label:"Davomat", type:"select", options:["KEL","KEM","SAB"]},
+        {key:"alochilar_soni", label:"A'lochilar soni", type:"number"},
+        {key:"manzil", label:"Manzil", type:"text"}
+      ],
+      display: ["ism_familiya","davomat","alochilar_soni","manzil"],
+      seed: [
+        {id:1, ism_familiya:"Aziz Yo'ldoshev", davomat:"KEL", alochilar_soni:3, manzil:"Chilonzor"},
+        {id:2, ism_familiya:"Malika Nosirova", davomat:"KEL", alochilar_soni:5, manzil:"Yunusobod"},
+        {id:3, ism_familiya:"Sardor Abdullayev", davomat:"KEM", alochilar_soni:0, manzil:"Sergeli"},
+        {id:4, ism_familiya:"Dilnoza Qosimova", davomat:"SAB", alochilar_soni:2, manzil:"Mirzo Ulug'bek"},
+        {id:5, ism_familiya:"Bekzod Tojiyev", davomat:"KEL", alochilar_soni:4, manzil:"Shayxontohur"},
+        {id:6, ism_familiya:"Nilufar Sattorova", davomat:"KEL", alochilar_soni:1, manzil:"Chilonzor"}
+      ]
+    }
+  };
+
+  var DAVOMAT_LABEL = {KEL:"Keldi", KEM:"Kelmadi", SAB:"Sababli"};
+  var STORE_KEY = "maktab-reestri-v1";
+  var state = { active:"maktab", data:{}, search:"" };
+
+  function loadData(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(raw){
+        state.data = JSON.parse(raw);
+        return;
+      }
+    }catch(e){ /* ignore, fall back to seed */ }
+    state.data = {};
+    Object.keys(SCHEMAS).forEach(function(k){
+      state.data[k] = SCHEMAS[k].seed.slice();
+    });
+  }
+  function persist(){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state.data)); }
+    catch(e){ /* storage unavailable, continue in-memory */ }
+  }
+
+  function nextId(list){
+    var max = 0;
+    list.forEach(function(r){ if(r.id > max) max = r.id; });
+    return max + 1;
+  }
+
+  function tagFor(key, val){
+    if(key === "talim"){
+      var cls = val === "yaxshi" ? "good" : (val === "orta" ? "mid" : "bad");
+      return '<span class="tag '+cls+'"><span class="dot"></span>'+val+'</span>';
+    }
+    if(key === "davomat"){
+      var cls2 = val === "KEL" ? "good" : (val === "SAB" ? "mid" : "bad");
+      return '<span class="tag '+cls2+'"><span class="dot"></span>'+(DAVOMAT_LABEL[val]||val)+'</span>';
+    }
+    return null;
+  }
+
+  function renderStats(){
+    var mk = state.data.maktab||[], sf = state.data.sinf||[], oq = state.data.oquvchi||[];
+    var totalStudents = mk.reduce(function(s,r){return s+(Number(r.oquvchilar)||0);},0);
+    var avgClass = sf.length ? Math.round(sf.reduce(function(s,r){return s+(Number(r.orindiqlar)||0);},0)/sf.length) : 0;
+    var present = oq.length ? Math.round(100*oq.filter(function(r){return r.davomat==="KEL";}).length/oq.length) : 0;
+    var html = '';
+    html += stat(mk.length, "Ro'yxatdagi maktablar");
+    html += stat(sf.length, "Ochilgan sinflar");
+    html += stat(totalStudents.toLocaleString("uz-UZ"), "Jami o'quvchilar (maktablar bo'yicha)");
+    html += stat(present + "%", "Bugungi davomat");
+    document.getElementById("statsRow").innerHTML = html;
+  }
+  function stat(n,l){
+    return '<div class="stat"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';
+  }
+
+  function render(){
+    var schema = SCHEMAS[state.active];
+    document.getElementById("contentTitle").textContent = schema.title;
+    document.getElementById("searchInput").value = state.search;
+
+    var thead = document.getElementById("theadRow");
+    thead.innerHTML = schema.display.map(function(k){
+      var col = schema.columns.filter(function(c){return c.key===k;})[0];
+      return '<th>'+col.label+'</th>';
+    }).join('') + '<th></th>';
+
+    var list = state.data[state.active]||[];
+    var q = state.search.trim().toLowerCase();
+    if(q){
+      list = list.filter(function(r){
+        return schema.columns.some(function(c){
+          var v = String(r[c.key]||"").toLowerCase();
+          return v.indexOf(q) !== -1;
+        });
+      });
+    }
+
+    var tbody = document.getElementById("tbody");
+    var emptyMsg = document.getElementById("emptyMsg");
+    if(!list.length){
+      tbody.innerHTML = "";
+      emptyMsg.style.display = "block";
+    }else{
+      emptyMsg.style.display = "none";
+      tbody.innerHTML = list.map(function(r){
+        var cells = schema.display.map(function(k){
+          var t = tagFor(k, r[k]);
+          return '<td>'+(t || escapeHtml(String(r[k]==null?"":r[k])))+'</td>';
+        }).join('');
+        return '<tr>'+cells+'<td><button class="rowbtn" data-del="'+r.id+'">o\'chirish</button></td></tr>';
+      }).join('');
+    }
+
+    Object.keys(SCHEMAS).forEach(function(k){
+      var el = document.getElementById("cnt-"+k);
+      if(el) el.textContent = (state.data[k]||[]).length + " ta";
+    });
+
+    document.querySelectorAll("#tabNav button").forEach(function(b){
+      b.classList.toggle("active", b.getAttribute("data-tab")===state.active);
+    });
+
+    renderStats();
+  }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function openModal(){
+    var schema = SCHEMAS[state.active];
+    document.getElementById("modalTitle").textContent = "Yangi " + schema.singular.toLowerCase();
+    var fields = document.getElementById("modalFields");
+    fields.innerHTML = schema.columns.map(function(c){
+      var id = "f_"+c.key;
+      if(c.type === "select"){
+        var opts = c.options.map(function(o){
+          var lbl = state.active==="oquvchi" ? (DAVOMAT_LABEL[o]||o) : o;
+          return '<option value="'+o+'">'+lbl+'</option>';
+        }).join('');
+        return '<div class="field"><label for="'+id+'">'+c.label+'</label><select id="'+id+'">'+opts+'</select></div>';
+      }
+      return '<div class="field"><label for="'+id+'">'+c.label+'</label><input id="'+id+'" type="'+c.type+'"></div>';
+    }).join('');
+    document.getElementById("overlay").classList.add("open");
+  }
+  function closeModal(){
+    document.getElementById("overlay").classList.remove("open");
+  }
+  function saveNew(){
+    var schema = SCHEMAS[state.active];
+    var record = { id: nextId(state.data[state.active]||[]) };
+    var ok = true;
+    schema.columns.forEach(function(c){
+      var el = document.getElementById("f_"+c.key);
+      var val = el.value;
+      if(c.type === "number"){
+        if(val === ""){ val = 0; }
+        val = Number(val);
+      }
+      if(c.key === (schema.display[0]) && String(val).trim()===""){ ok = false; }
+      record[c.key] = val;
+    });
+    if(!ok){
+      var firstEl = document.getElementById("f_"+schema.columns[0].key);
+      firstEl.focus();
+      return;
+    }
+    state.data[state.active] = state.data[state.active]||[];
+    state.data[state.active].push(record);
+    persist();
+    closeModal();
+    render();
+  }
+
+  document.getElementById("tabNav").addEventListener("click", function(e){
+    var btn = e.target.closest("button[data-tab]");
+    if(!btn) return;
+    state.active = btn.getAttribute("data-tab");
+    state.search = "";
+    render();
+  });
+  document.getElementById("searchInput").addEventListener("input", function(e){
+    state.search = e.target.value;
+    render();
+  });
+  document.getElementById("addBtn").addEventListener("click", openModal);
+  document.getElementById("cancelBtn").addEventListener("click", closeModal);
+  document.getElementById("saveBtn").addEventListener("click", saveNew);
+  document.getElementById("overlay").addEventListener("click", function(e){
+    if(e.target.id === "overlay") closeModal();
+  });
+  document.getElementById("tbody").addEventListener("click", function(e){
+    var btn = e.target.closest("button[data-del]");
+    if(!btn) return;
+    var id = Number(btn.getAttribute("data-del"));
+    state.data[state.active] = (state.data[state.active]||[]).filter(function(r){return r.id!==id;});
+    persist();
+    render();
+  });
+
+  var themeBtn = document.getElementById("themeToggle");
+  function applyTheme(t){
+    if(t){ document.documentElement.setAttribute("data-theme", t); }
+    else{ document.documentElement.removeAttribute("data-theme"); }
+    themeBtn.textContent = (document.documentElement.getAttribute("data-theme")==="dark") ? "Kunduzgi ko'rinish" : "Tungi ko'rinish";
+  }
+  themeBtn.addEventListener("click", function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try{ localStorage.setItem("maktab-theme", next); }catch(e){}
+  });
+  (function initTheme(){
+    var saved = null;
+    try{ saved = localStorage.getItem("maktab-theme"); }catch(e){}
+    if(saved) applyTheme(saved);
+  })();
+
+  document.getElementById("todayStr").textContent = "Reestr — " + new Date().getFullYear();
+
+  loadData();
+  render();
+})();
+</script>
+</body>
+</html>
