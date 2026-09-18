@@ -7,8 +7,5 @@ from .views import t2
 
 
 urlpatterns =  [
-    path('t1/', t1, name='me'),
-
-
-    path('t2/', t2, name='me'),
+    path('imron/', imron, name='Happy'),
 ]
