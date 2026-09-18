@@ -26,3 +26,10 @@ def t1(request):
 def t2(request):
     ctx={}
     return render(request, "t2.html")
+
+
+
+
+def asliddin(request):
+    ctx={}
+    return render(request, "aslidin.html")
