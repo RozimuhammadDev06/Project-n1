@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maktab Boshqaruv Tizimi</title>
+    <link rel="stylesheet" href="{%  static 't1.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>
+            🏫 Maktab Boshqaruv Tizimi
+            <span>Django Models UI</span>
+        </h1>
+        <div style="font-size: 0.9rem; opacity: 0.9;">Maktab • Sinf • O‘quvchi</div>
+    </header>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">12</div>
+                <div class="label">Maktablar</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">48</div>
+                <div class="label">Sinflar</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">1 240</div>
+                <div class="label">O‘quvchilar</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">86</div>
+                <div class="label">O‘qituvchilar</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('maktab')">🏫 Maktablar</button>
+            <button class="tab-btn" onclick="showTab('sinf')">📚 Sinflar</button>
+            <button class="tab-btn" onclick="showTab('oquvchi')">👨‍🎓 O‘quvchilar</button>
+            <button class="tab-btn" onclick="showTab('formlar')">➕ Yangi qo‘shish</button>
+        </div>
+
+        <!-- ========== MAKTAB TAB ========== -->
+        <div id="maktab" class="tab-content active">
+            <h2 class="section-title">🏫 Maktablar ro‘yxati</h2>
+            <div class="grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>12-maktab</h3>
+                        <span class="badge badge-yaxshi">Yaxshi</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Direktor</span>
+                            <span class="info-value">Karimov A.B.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Honalari</span>
+                            <span class="info-value">42</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Elektronika</span>
+                            <span class="info-value">Kompyuter, proyektor, smart doska</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Zona</span>
+                            <span class="info-value">Shahar markazi, 2-mikrorayon</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘qituvchilar</span>
+                            <span class="info-value">68</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘quvchilar</span>
+                            <span class="info-value">1 120</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Manzil</span>
+                            <span class="info-value">Toshkent, Yunusobod</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>45-maktab</h3>
+                        <span class="badge badge-orta">O‘rta</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Direktor</span>
+                            <span class="info-value">Toshmatova S.R.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Honalari</span>
+                            <span class="info-value">28</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Elektronika</span>
+                            <span class="info-value">Kompyuter, interaktiv doska</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Zona</span>
+                            <span class="info-value">Chilonzor tumani</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘qituvchilar</span>
+                            <span class="info-value">41</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘quvchilar</span>
+                            <span class="info-value">780</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Manzil</span>
+                            <span class="info-value">Toshkent, Chilonzor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>7-maktab</h3>
+                        <span class="badge badge-yomon">Yomon</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Direktor</span>
+                            <span class="info-value">Rahimov D.K.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Honalari</span>
+                            <span class="info-value">18</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Elektronika</span>
+                            <span class="info-value">Oddiy doska, 2 ta kompyuter</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Zona</span>
+                            <span class="info-value">Qishloq hududi</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘qituvchilar</span>
+                            <span class="info-value">22</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘quvchilar</span>
+                            <span class="info-value">340</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Manzil</span>
+                            <span class="info-value">Samarqand viloyati</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SINF TAB ========== -->
+        <div id="sinf" class="tab-content">
+            <h2 class="section-title">📚 Sinflar</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>9-A sinf</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Dars vaqti</span>
+                            <span class="info-value">08:30 – 13:40</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Sharoit</span>
+                            <span class="info-value">Yaxshi, konditsioner bor</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Xona kengligi</span>
+                            <span class="info-value">48 m²</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Yo‘nalish</span>
+                            <span class="info-value">Aniq fanlar</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘qituvchi</span>
+                            <span class="info-value">Usmarova N.T.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘rinlar</span>
+                            <span class="info-value">32</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘quvchi (FK)</span>
+                            <span class="info-value">Aliyev Jasur</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>10-B sinf</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Dars vaqti</span>
+                            <span class="info-value">09:00 – 14:10</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Sharoit</span>
+                            <span class="info-value">O‘rtacha</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Xona kengligi</span>
+                            <span class="info-value">42 m²</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Yo‘nalish</span>
+                            <span class="info-value">Gumanitar</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘qituvchi</span>
+                            <span class="info-value">Karimova L.S.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘rinlar</span>
+                            <span class="info-value">28</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">O‘quvchi (FK)</span>
+                            <span class="info-value">Saidova Madina</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== OQUVCHI TAB ========== -->
+        <div id="oquvchi" class="tab-content">
+            <h2 class="section-title">👨‍🎓 O‘quvchilar</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Aliyev Jasur</h3>
+                        <span class="badge badge-kel">Keldi</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Alochilar soni</span>
+                            <span class="info-value">4</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Manzil</span>
+                            <span class="info-value">Yunusobod, 12-kv</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Davomat</span>
+                            <span class="info-value">KELDI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Saidova Madina</h3>
+                        <span class="badge badge-sab">Sababli</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Alochilar soni</span>
+                            <span class="info-value">2</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Manzil</span>
+                            <span class="info-value">Chilonzor, 5-mavze</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Davomat</span>
+                            <span class="info-value">SABABLI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Toshmatov Aziz</h3>
+                        <span class="badge badge-kem">Kemadi</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-label">Alochilar soni</span>
+                            <span class="info-value">0</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Manzil</span>
+                            <span class="info-value">Sergeli, 3-kv</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Davomat</span>
+                            <span class="info-value">KEMADI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== FORMLAR TAB ========== -->
+        <div id="formlar" class="tab-content">
+            <!-- Maktab formasi -->
+            <div class="form-section">
+                <h2>🏫 Yangi maktab qo‘shish</h2>
+                <form>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Maktab raqami *</label>
+                            <input type="number" name="number" placeholder="Masalan: 12" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Honalari soni *</label>
+                            <input type="number" name="honalar" placeholder="42" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Elektronika</label>
+                            <input type="text" name="elektronika" placeholder="Kompyuter, proyektor..." maxlength="150">
+                        </div>
+                        <div class="form-group">
+                            <label>Zona</label>
+                            <input type="text" name="zona" placeholder="Shahar markazi..." maxlength="300">
+                        </div>
+                        <div class="form-group">
+                            <label>Ta’lim sifati *</label>
+                            <select name="talim" required>
+                                <option value="">Tanlang...</option>
+                                <option value="yaxshi">Yaxshi</option>
+                                <option value="orta">O‘rta</option>
+                                <option value="yomon">Yomon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Direktor *</label>
+                            <input type="text" name="direktor" placeholder="Ism Familiya" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label>O‘qituvchilar soni *</label>
+                            <input type="number" name="oqtuvchilar" required>
+                        </div>
+                        <div class="form-group">
+                            <label>O‘quvchilar soni *</label>
+                            <input type="number" name="oquvchilar" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Manzil *</label>
+                            <input type="text" name="manzil" placeholder="Toshkent, ..." maxlength="50" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 Saqlash</button>
+                        <button type="reset" class="btn btn-secondary">Tozalash</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sinf formasi -->
+            <div class="form-section">
+                <h2>📚 Yangi sinf qo‘shish</h2>
+                <form>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Sinf nomi *</label>
+                            <input type="text" name="nomi" placeholder="9-A" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Dars vaqti</label>
+                            <input type="text" name="dars_vaqti" placeholder="08:30 – 13:40" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label>Sharoit</label>
+                            <input type="text" name="sharoyit" placeholder="Yaxshi, konditsioner..." maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Xona kengligi (m²) *</label>
+                            <input type="number" name="xona_kengligi" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Yo‘nalish</label>
+                            <input type="text" name="yonalish" placeholder="Aniq fanlar / Gumanitar" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label>O‘qituvchi *</label>
+                            <input type="text" name="oqituvchi" placeholder="Ism Familiya" maxlength="25" required>
+                        </div>
+                        <div class="form-group">
+                            <label>O‘quvchi (FK) *</label>
+                            <select name="oquvchilar" required>
+                                <option value="">Tanlang...</option>
+                                <option value="1">Aliyev Jasur</option>
+                                <option value="2">Saidova Madina</option>
+                                <option value="3">Toshmatov Aziz</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>O‘rinlar soni *</label>
+                            <input type="number" name="orindiqlar" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 Saqlash</button>
+                        <button type="reset" class="btn btn-secondary">Tozalash</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- O‘quvchi formasi -->
+            <div class="form-section">
+                <h2>👨‍🎓 Yangi o‘quvchi qo‘shish</h2>
+                <form>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Ism Familiya *</label>
+                            <input type="text" name="ism_familiya" placeholder="Aliyev Jasur" maxlength="40" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Alochilar soni *</label>
+                            <input type="number" name="alochilar_soni" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Manzil *</label>
+                            <input type="text" name="manzil" placeholder="Yunusobod..." maxlength="20" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Davomat *</label>
+                            <select name="davomat" required>
+                                <option value="KEL">KELDI</option>
+                                <option value="KEM">KEMADI</option>
+                                <option value="SAB">SABABLI</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 Saqlash</button>
+                        <button type="reset" class="btn btn-secondary">Tozalash</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Remove active from buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Show selected
+            document.getElementById(tabId).classList.add('active');
+            // Activate button
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
