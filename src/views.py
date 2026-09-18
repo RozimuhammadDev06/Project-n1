@@ -8,3 +8,26 @@ from django.shortcuts import render
 def t1(request):
     ctx={}
     return render(request, "t1.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def t2(request):
+    ctx={}
+    return render(request, "t2.html")
