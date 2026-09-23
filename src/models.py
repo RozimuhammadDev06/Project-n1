@@ -52,3 +52,6 @@ class Sinf(models.Model):
 
     def __str__(self):
         return self.nomi
+
+class new(models.Model):
+    oquvchi = models.ForeignKey(Oquvchi, on_delete=models.CASCADE)
