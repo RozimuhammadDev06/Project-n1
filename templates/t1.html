@@ -15,7 +15,7 @@
         </h1>
         <div style="font-size: 0.9rem; opacity: 0.9;">Maktab • Sinf • O‘quvchi</div>
     </header>
-
+  
     <div class="container">
         <!-- Stats -->
         <div class="stats">
@@ -28,7 +28,7 @@
                 <div class="label">Sinflar</div>
             </div>
             <div class="stat-card">
-                <div class="number">1 240</div>
+                <div class="number">{{ soni }}</div>
                 <div class="label">O‘quvchilar</div>
             </div>
             <div class="stat-card">
@@ -126,6 +126,7 @@
                 </div>
 
                 <!-- Card 3 -->
+                 
                 <div class="card">
                     <div class="card-header">
                         <h3>7-maktab</h3>
@@ -247,68 +248,34 @@
         <div id="oquvchi" class="tab-content">
             <h2 class="section-title">👨‍🎓 O‘quvchilar</h2>
             <div class="grid">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Aliyev Jasur</h3>
-                        <span class="badge badge-kel">Keldi</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="info-row">
-                            <span class="info-label">Alochilar soni</span>
-                            <span class="info-value">4</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Manzil</span>
-                            <span class="info-value">Yunusobod, 12-kv</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Davomat</span>
-                            <span class="info-value">KELDI</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Saidova Madina</h3>
-                        <span class="badge badge-sab">Sababli</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="info-row">
-                            <span class="info-label">Alochilar soni</span>
-                            <span class="info-value">2</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Manzil</span>
-                            <span class="info-value">Chilonzor, 5-mavze</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Davomat</span>
-                            <span class="info-value">SABABLI</span>
-                        </div>
-                    </div>
-                </div>
 
+                {% for i in oq %}
                 <div class="card">
                     <div class="card-header">
-                        <h3>Toshmatov Aziz</h3>
-                        <span class="badge badge-kem">Kemadi</span>
+                        <h3>{{ i.ism_familiya }}</h3>
+                        <span class="badge badge-kel">{{ i.davomat }}</span>
                     </div>
                     <div class="card-body">
                         <div class="info-row">
-                            <span class="info-label">Alochilar soni</span>
-                            <span class="info-value">0</span>
+                            <span class="info-label">Alochilar Topi</span>
+                            <span class="info-value">{{ i.alochilar_soni }}</span>
                         </div>
                         <div class="info-row">
                             <span class="info-label">Manzil</span>
-                            <span class="info-value">Sergeli, 3-kv</span>
+                            <span class="info-value">{{ i.manzil }}</span>
                         </div>
                         <div class="info-row">
                             <span class="info-label">Davomat</span>
-                            <span class="info-value">KEMADI</span>
+                            <span class="info-value">{{ i.davomat }}</span>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+
+              
+
+
             </div>
         </div>
 
@@ -452,6 +419,7 @@
             </div>
         </div>
     </div>
+ 
 
     <script>
         function showTab(tabId) {

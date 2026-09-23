@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Oquvchi
 # Create your views here.
 
 
@@ -14,8 +14,14 @@ def imron(request):
 
 
 def t1(request):
-    ctx={}
-    return render(request, "t1.html")
+    oquvchi = Oquvchi.objects.all()
+    oquvchi_soni = Oquvchi.objects.count()
+
+    ctx={
+        'oq':oquvchi,
+        "soni": oquvchi_soni,
+    }
+    return render(request, "t1.html",ctx)
 
 
 
