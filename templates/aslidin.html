@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chirchiq 24-maktab — rasmiy sahifa</title>
+  <title>{{ i.name }}</title>
   <link rel="stylesheet" href="{% static 'nargiza.css' %}">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="wrap top-inner">
       <div class="brand">
         <div class="crest">24</div>
-        <div>Chirchiq shahar 24-maktab</div>
+        <div>{{ i.name }}</div>
       </div>
       <nav class="menu">
         <a href="#maktab">Maktab</a>
@@ -27,7 +27,7 @@
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="kicker">Ta'lim sifati: yaxshi</div>
-      <h1>Bilim. Odob. Kelajak.</h1>
+      <h1>Bilim Odob Kelajak.</h1>
       <p>Toshkent viloyati, Chirchiq shahridagi 24-umumiy o'rta ta'lim maktabi. Shahar o'quvchilariga zamonaviy honalar, elektronika va kuchli o'qituvchilar jamoasi bilan ta'lim beradi.</p>
       <div class="hero-actions">
         <a class="btn btn-gold" href="#maktab">Maktab haqida</a>
@@ -38,24 +38,25 @@
 
   <div class="wrap">
     <div class="facts">
-      <div class="fact"><b>42</b><span>Honalar</span></div>
-      <div class="fact"><b>48</b><span>O'qituvchilar</span></div>
-      <div class="fact"><b>720</b><span>O'quvchilar</span></div>
+      <div class="fact"><b>42</b><span>{{ i.honalar }}</span></div>
+      <div class="fact"><b>48</b><span>{{ i.oqtuvchilar }}</span></div>
+      <div class="fact"><b>{{ soni }}</b><span>{{ i.oquvchilar }}</span></div>
       <div class="fact"><b>32</b><span>O'rindiqli sinflar</span></div>
     </div>
   </div>
 
   <section class="section" id="maktab">
+    {% for i in maktab %}
     <div class="wrap split">
       <div>
         <h2>Maktab haqida ma'lumot</h2>
         <p class="lead">Maktab Chirchiq shahrida joylashgan. Direktor rahbarligida ta'lim, tarbiya va xavfsiz muhit birgalikda olib boriladi.</p>
         <div class="info-card">
-          <div class="row"><span>Maktab raqami</span><b>24-maktab</b></div>
-          <div class="row"><span>Direktor</span><b>Karimova Nilufar</b></div>
-          <div class="row"><span>Manzil</span><b>Toshkent viloyati, Chirchiq shahri</b></div>
-          <div class="row"><span>Zona</span><b>Chirchiq shahar zonasi</b></div>
-          <div class="row"><span>Ta'lim</span><b><span class="badge yaxshi">yaxshi</span></b></div>
+          <div class="row"><span>Maktab raqami</span><b>{{ i.number }}</b></div>
+          <div class="row"><span>Direktor</span><b>{{ i.direktor }}</b></div>
+          <div class="row"><span>Manzil</span><b>{{ i.manzil }}</b></div>
+          <div class="row"><span>Zona</span><b>{{ i.zona }}</b></div>
+          <div class="row"><span>Ta'lim</span><b><span class="badge yaxshi">{{ i.talim }}</span></b></div>
         </div>
       </div>
       <aside class="panel">
@@ -67,6 +68,7 @@
         </div>
       </aside>
     </div>
+    {% endfor %}
   </section>
 
   <section class="section" id="sharoit" style="padding-top:0">
@@ -89,7 +91,7 @@
       </div>
     </div>
   </section>
-  
+
   <section class="section" id="sinflar">
     <div class="wrap">
       <h2>Sinflar</h2>
@@ -135,24 +137,14 @@
           </tr>
         </thead>
         <tbody>
+          {% for i in oq %}
           <tr>
-            <td>Aliyeva Madina</td>
-            <td>Chinor MFY</td>
-            <td>12</td>
-            <td><span class="badge KEL">KELDI</span></td>
+            <td>{{ i.ism }}</td>
+            <td>{{ i.manzil }}</td>
+            <td>{{ i.alochilar }}</td>
+            <td><span class="badge {{ i.davomat }}">{{ i.davomat }}</span></td>
           </tr>
-          <tr>
-            <td>Rahimov Bekzod</td>
-            <td>Do'stlik</td>
-            <td>8</td>
-            <td><span class="badge SAB">SABABLI</span></td>
-          </tr>
-          <tr>
-            <td>Usmonova Sevinch</td>
-            <td>Olmazor</td>
-            <td>15</td>
-            <td><span class="badge KEM">KEMADI</span></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

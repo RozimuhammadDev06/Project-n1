@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from  .models import Oquvchi,Maktab,Sinf
 # Create your views here.
 
 
@@ -31,5 +31,14 @@ def t2(request):
 
 
 def asliddin(request):
-    ctx={}
-    return render(request, "aslidin.html")
+    oquvchi = Oquvchi.objects.all()
+    oquvchi_soni = oquvchi.count()
+    maktab = Maktab.objects.all()
+    sinf = Sinf.objects.all()
+    ctx={
+        "oq": oquvchi,
+        "soni": oquvchi_soni,
+        "maktab": maktab,
+        "sinf": sinf,
+    }
+    return render(request, "aslidin.html", ctx)
